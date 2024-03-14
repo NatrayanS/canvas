@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+     
+      background-color: white;
+      border-radius: 10px;
+      height: 80%;
+      width: 80%;
+    }
+  </style>
+  <body>
+    <canvas id="canvas" ></canvas>
+  </body>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    //fill rect
+    ctx.fillStyle = "pink";
+    ctx.fillRect(30, 30, 100, 50);
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(30, 90, 100, 50);
+    //stroke rect
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "red";
+    ctx.strokeRect(150, 30, 100, 50);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "blue";
+    ctx.strokeRect(150, 90, 100, 50);
+    //fill text
+    ctx.font = "30px  Arial";
+    ctx.fillStyle = "orange";
+    ctx.fillText("Canvas", 100, 25);
+    //box use to line
+
+    ctx.beginPath();
+    ctx.moveTo(100, 50);
+    ctx.lineTo(200, 50);
+    ctx.lineTo(200, 100);
+    ctx.lineTo(100, 100);
+
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "green";
+    ctx.stroke();
+    ctx.fillStyle = "purple";
+    ctx.fill();
+
+    //circle
+    ctx.beginPath();
+    ctx.arc(150, 75, 20, 0, Math.PI * 2);
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+    ctx.fillStyle = "orange";
+    ctx.fill();
+    //eye circle
+    ctx.beginPath();
+    ctx.arc(142.5, 67.5, 2.5, 0, Math.PI * 2);
+    //ctx.arc(157.5,67.5,2.5,0,Math.PI*2);
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.beginPath();
+    //ctx.arc(142.5,67.5,2.5,0,Math.PI*2);
+    ctx.arc(157.5, 67.5, 2.5, 0, Math.PI * 2);
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+    ctx.fillStyle = "white";
+    ctx.fill();
+    //half  circle
+    ctx.beginPath();
+    ctx.arc(150, 75, 10, 0, Math.PI);
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+    ctx.fillStyle = "green";
+    ctx.fill();
+
+    //animation
+
+    const circle = {
+      x: 0,
+      y: 0,
+      radius: 1,
+      dx: 5,
+      dy: 4,
+    };
+
+    function drawCircle() {
+      ctx.beginPath();
+      ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "red";
+      ctx.fill();
+    }
+    drawCircle();
+
+    function update() {
+      drawCircle();
+      circle.x += circle.dx;
+      circle.y += circle.dy;
+
+      requestAnimationFrame(update);
+
+      if (
+        circle.x + circle.radius > canvas.width ||
+        canvas.x - circle.radius < 0
+      ) {
+        circle.dx *= -1;
+      }
+      if (
+        circle.y + circle.radius > canvas.height ||
+        canvas.y - circle.radius < 0
+      ) {
+        circle.dy *= -1;
+      }
+    }
+    update();
+  </script>
+</html>
